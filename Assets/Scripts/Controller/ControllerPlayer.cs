@@ -31,6 +31,9 @@ public class ControllerPlayer : ControllerBase
             MainInput.actions["Move"].performed += OnMove;
             MainInput.actions["Move"].canceled += OnMove;
 
+            MainInput.actions["MouseMove"].performed += OnDragMove;
+            MainInput.actions["MouseMove"].canceled += OnDragMove;
+
             MainInput.actions["LeftClick"].performed += OnLeftClick;
             MainInput.actions["LeftClick"].canceled += OnLeftClick;
             
@@ -48,6 +51,9 @@ public class ControllerPlayer : ControllerBase
             MainInput.actions["Move"].performed -= OnMove;
             MainInput.actions["Move"].canceled -= OnMove;
 
+            MainInput.actions["MouseMove"].performed -= OnDragMove;
+            MainInput.actions["MouseMove"].canceled -= OnDragMove;
+
             MainInput.actions["LeftClick"].performed -= OnLeftClick;
             MainInput.actions["LeftClick"].canceled -= OnLeftClick;
 
@@ -64,19 +70,25 @@ public class ControllerPlayer : ControllerBase
     protected void OnMove(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
-        character.SetMove(moveInput);
+        mCharacter.SetMove(moveInput);
+    }
+
+    protected void OnDragMove(InputAction.CallbackContext context)
+    {
+        Vector2 moveInput = context.ReadValue<Vector2>();
+        mCharacter.SetDragMove(moveInput);
     }
 
     protected void OnLeftClick(InputAction.CallbackContext context)
     {
         int clickInput = Mathf.RoundToInt(context.ReadValue<float>());
-        character.SetClick(clickInput);
+        mCharacter.SetClick(clickInput);
     }
 
     protected void OnRightClick(InputAction.CallbackContext context)
     {
         int clickInput = Mathf.RoundToInt(context.ReadValue<float>()) + 2;
-        character.SetClick(clickInput);
+        mCharacter.SetClick(clickInput);
     }
 
     protected void OnDestroy()

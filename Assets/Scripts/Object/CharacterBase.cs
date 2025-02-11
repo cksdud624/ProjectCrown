@@ -4,33 +4,35 @@ using UnityEngine.Rendering;
 
 public class CharacterBase : ObjectBase
 {
-    protected CharacterStat CharacterStatus;
+    protected CharacterStat mCharacterStatus;
 
     //캐릭터 베이스 -> 오브젝트 베이스를 상속받아 애니메이션 적용 가능한 캐릭터 공통 부분을 담당한다.
-    protected ControllerBase MainController;
-    protected AnimatorBase MainAnimator;
+    protected ControllerBase mMainController;
+    protected AnimatorBase mMainAnimator;
 
     protected override void Init()
     {
         base.Init();
 
-        MainController = GetComponent<ControllerBase>();
-        MainController.SetMediator(this);
+        //컨트롤러 바인딩
+        mMainController = GetComponent<ControllerBase>();
+        mMainController.SetMediator(this);
 
+        //애니메이터 바인딩
         for(int i = 0; i < transform.childCount; i++)
         {
-            AnimatorBase tempAnimBase = transform.GetChild(i).GetComponent<AnimatorBase>();
-            if(tempAnimBase != null)
+            AnimatorBase tempAnimationBase = transform.GetChild(i).GetComponent<AnimatorBase>();
+            if(tempAnimationBase != null)
             {
-                MainAnimator = tempAnimBase;
+                mMainAnimator = tempAnimationBase;
                 break;
             }
         }
-        MainAnimator.SetMediator(this);
+        mMainAnimator.SetMediator(this);
 
-        if (ObjectStatus is CharacterStat)
-            CharacterStatus = ObjectStatus as CharacterStat;
+        if (mObjectStatus is CharacterStat)
+            mCharacterStatus = mObjectStatus as CharacterStat;
         else
-            Debug.Log("Bind Error On CharacterStat");
+            Debug.Log("Cast Error On CharacterStat");
     }
 }

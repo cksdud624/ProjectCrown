@@ -3,10 +3,10 @@ using UnityEngine;
 public class AnimatorBase : MonoBehaviour, IObjectComponent
 {
     //애니메이터 베이스 -> 애니메이션 공통부분을 담당한다.
-    protected CharacterBase character;
-    protected Animator animator;
+    protected CharacterBase mCharacter;
+    protected Animator mAnimator;
 
-    protected float MoveLerp = 0f;
+    protected float mMoveLerp = 0f;
 
     protected void Update()
     {
@@ -15,20 +15,20 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
 
     protected void SetVelocityParameter()
     {
-        if (character.IsMoving())
+        if (mCharacter.IsMoving())
         {
-            MoveLerp = Mathf.Lerp(MoveLerp, 1, Time.deltaTime * 15);
-            if (MoveLerp > 0.99f)
-                MoveLerp = 1;
+            mMoveLerp = Mathf.Lerp(mMoveLerp, 1, Time.deltaTime * 15);
+            if (mMoveLerp > 0.99f)
+                mMoveLerp = 1;
         }
         else
         {
-            MoveLerp = Mathf.Lerp(MoveLerp, 0, Time.deltaTime * 15);
-            if (MoveLerp < 0.01f)
-                MoveLerp = 0;
+            mMoveLerp = Mathf.Lerp(mMoveLerp, 0, Time.deltaTime * 15);
+            if (mMoveLerp < 0.01f)
+                mMoveLerp = 0;
         }
 
-        animator.SetFloat("Velocity", MoveLerp);
+        mAnimator.SetFloat("Velocity", mMoveLerp);
     }
 
 
@@ -37,13 +37,13 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
         Init();
 
         if (objectBase is CharacterBase)
-            character = (CharacterBase)objectBase;
+            mCharacter = (CharacterBase)objectBase;
         else
             Debug.Log("Cast Error on AnimatorBase");
     }
 
     protected void Init()
     {
-        animator = GetComponent<Animator>();
+        mAnimator = GetComponent<Animator>();
     }
 }

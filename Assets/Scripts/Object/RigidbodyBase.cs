@@ -1,53 +1,66 @@
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class RigidbodyBase : MonoBehaviour, IObjectComponent
 {
-    protected ObjectBase objectBase;
+    protected ObjectBase mObject;
 
-    Rigidbody MainRigidbody;
+    Rigidbody mMainRigidbody;
 
-    protected Vector2 direction = Vector2.zero;
     public bool IsMoving { get; protected set; }
+    protected bool mIsPlayer = false;
 
-    protected float MoveSpeed = 1;
+    protected Vector2 mDirection = Vector2.zero;
+
+    protected float mMoveSpeed = 1;
 
     public void SetMediator(ObjectBase objectBase)
     {
-        this.objectBase = objectBase;
+        mObject = objectBase;
+
         Init();
     }
 
     protected void Init()
     {
-        MainRigidbody = GetComponent<Rigidbody>();
-        MoveSpeed = objectBase.GetMoveSpeed();
+        mMainRigidbody = GetComponent<Rigidbody>();
+        mMoveSpeed = mObject.GetMoveSpeed();
+
+        if (mObject is PlayerBase)
+            mIsPlayer = true;
     }
 
     protected void FixedUpdate()
     {
-        if(MainRigidbody)
+        if(mMainRigidbody)
         {
-            float terminal = MainRigidbody.linearVelocity.y;
-
-            Vector3 localDirection = new Vector3(direction.x, 0, direction.y);
-            Vector3 worldDirection = transform.TransformDirection(localDirection);
-
-            MainRigidbody.linearVelocity = new Vector3(worldDirection.x, terminal, worldDirection.z);
-            if (direction != new Vector2(0, 0))
+            if (mIsPlayer)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(localDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15);
+                MovePlayer();
             }
         }
+    }
+
+    protected void MovePlayer()
+    {
+        float terminal = mMainRigidbody.linearVelocity.y;
+
+        Vector3 forwardDirection = ((PlayerBase)mObject).GetCameraDirection();
+        forwardDirection.y = 0;
+        Vector3 rightDirection = Vector3.Cross(Vector3.up, forwardDirection);
+
+        Vector3 moveDirection = forwardDirection * mDirection.y + rightDirection * mDirection.x;
+
+        mMainRigidbody.linearVelocity = new Vector3(moveDirection.x, terminal, moveDirection.z);
     }
 
     #region Receive
     public void SetDirection(Vector2 direction)
     {
-        this.direction = direction;
+        mDirection = direction;
         if (direction.magnitude < 0.05)
             IsMoving = false;
         else
