@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraBase : MonoBehaviour, IObjectComponent
 {
-    protected PlayerBase mPlayer;
+    protected ObjectBase mObject;
     protected Camera mMainCamera;
 
     [SerializeField]
@@ -13,11 +13,7 @@ public class CameraBase : MonoBehaviour, IObjectComponent
     public void SetMediator(ObjectBase objectBase)
     {
         Init();
-
-        if (objectBase is PlayerBase)
-            mPlayer = (PlayerBase)objectBase;
-        else
-            Debug.Log("Cast Error on CameraBase");
+        mObject = objectBase;
     }
 
     protected void Init()
@@ -37,13 +33,9 @@ public class CameraBase : MonoBehaviour, IObjectComponent
     }
 
     #region Receive
-
     public void SetRotation(Vector2 rotation)
     {
         mRotation = rotation;
-        Debug.Log(rotation.x);
     }
-
-
     #endregion
 }

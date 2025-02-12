@@ -69,7 +69,6 @@ public class RigidbodyBase : MonoBehaviour, IObjectComponent
 
     public void SetInput(int input)
     {
-        Debug.Log(input);
     }
     #endregion
 }

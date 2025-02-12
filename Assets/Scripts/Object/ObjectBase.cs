@@ -12,6 +12,7 @@ public class ObjectBase : MonoBehaviour
     public int Defense { get; set; }
 
     protected RigidbodyBase mMainRigidbody;
+    protected CameraBase mMainCamera;
 
     protected void Start()
     {
@@ -22,6 +23,18 @@ public class ObjectBase : MonoBehaviour
     {
         mMainRigidbody = GetComponent<RigidbodyBase>();
         mMainRigidbody.SetMediator(this);
+
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            CameraBase tempCameraBase = transform.GetChild(i).GetComponent<CameraBase>();
+            if (tempCameraBase != null)
+            {
+                mMainCamera = tempCameraBase;
+                break;
+            }
+        }
+        mMainCamera.SetMediator(this);
     }
 
     #region Status
@@ -31,14 +44,14 @@ public class ObjectBase : MonoBehaviour
     #endregion
 
     #region Controller
-    public void SetMove(Vector2 move)
+    public virtual void SetMove(Vector2 move)
     {
         mMainRigidbody.SetDirection(move);
     }
 
-    public virtual void SetDragMove(Vector2 move)
+    public void SetDragMove(Vector2 move)
     {
-
+        mMainCamera.SetRotation(move);
     }
 
     public void SetClick(int click)
@@ -49,6 +62,10 @@ public class ObjectBase : MonoBehaviour
 
     #region Rigidbody
     public bool IsMoving() => mMainRigidbody.IsMoving;
+    #endregion
+
+    #region Camera
+    public Vector3 GetCameraDirection() => mMainCamera.transform.forward;
     #endregion
 
 }

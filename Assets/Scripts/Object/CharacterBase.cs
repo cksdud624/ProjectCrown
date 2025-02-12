@@ -35,4 +35,10 @@ public class CharacterBase : ObjectBase
         else
             Debug.Log("Cast Error On CharacterStat");
     }
+
+    public override void SetMove(Vector2 move)
+    {
+        base.SetMove(move);
+        mMainAnimator.SetModelRotation(move);
+    }
 }

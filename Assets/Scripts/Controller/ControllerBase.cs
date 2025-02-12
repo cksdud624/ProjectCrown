@@ -8,10 +8,6 @@ public class ControllerBase : MonoBehaviour, IObjectComponent
 
     protected CharacterBase mCharacter;
 
-    public void InitializeComponent()
-    {
-    }
-
     public void SetMediator(ObjectBase objectBase)
     {
         if (objectBase is CharacterBase)
