@@ -9,6 +9,22 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
     protected Vector2 mModelDirection = Vector2.zero;
     protected float mMoveLerp = 0f;
 
+
+    public void SetMediator(ObjectBase objectBase)
+    {
+        Init();
+
+        if (objectBase is CharacterBase)
+            mCharacter = (CharacterBase)objectBase;
+        else
+            Debug.Log("Cast Error on AnimatorBase");
+    }
+
+    protected void Init()
+    {
+        mAnimator = GetComponent<Animator>();
+    }
+
     protected void Update()
     {
         SetVelocityParameter();
@@ -49,21 +65,10 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
     {
         mModelDirection = rotation;
     }
+
+    public void SetInput(int input)
+    {
+        Debug.Log(input);
+    }
     #endregion
-
-
-    public void SetMediator(ObjectBase objectBase)
-    {
-        Init();
-
-        if (objectBase is CharacterBase)
-            mCharacter = (CharacterBase)objectBase;
-        else
-            Debug.Log("Cast Error on AnimatorBase");
-    }
-
-    protected void Init()
-    {
-        mAnimator = GetComponent<Animator>();
-    }
 }

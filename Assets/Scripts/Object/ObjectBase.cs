@@ -54,9 +54,8 @@ public class ObjectBase : MonoBehaviour
         mMainCamera.SetRotation(move);
     }
 
-    public void SetClick(int click)
+    public virtual void SetClick(int click)
     {
-        mMainRigidbody.SetInput(click);
     }
     #endregion
 

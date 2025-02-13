@@ -39,6 +39,13 @@ public class ControllerPlayer : ControllerBase
             
             MainInput.actions["RightClick"].performed += OnRightClick;
             MainInput.actions["RightClick"].canceled += OnRightClick;
+
+            MainInput.actions["Shift"].performed += OnShiftClick;
+            MainInput.actions["Shift"].canceled += OnShiftClick;
+
+            MainInput.actions["Space"].performed += OnSpaceClick;
+            MainInput.actions["Space"].canceled += OnSpaceClick;
+
         }
         else
             Debug.Log("Player Input is null(bind)");
@@ -59,6 +66,12 @@ public class ControllerPlayer : ControllerBase
 
             MainInput.actions["RightClick"].performed -= OnRightClick;
             MainInput.actions["RightClick"].canceled -= OnRightClick;
+
+            MainInput.actions["Shift"].performed -= OnShiftClick;
+            MainInput.actions["Shift"].canceled -= OnShiftClick;
+
+            MainInput.actions["Space"].performed -= OnSpaceClick;
+            MainInput.actions["Space"].canceled -= OnSpaceClick;
 
             MainInput = null;
         }
@@ -88,6 +101,18 @@ public class ControllerPlayer : ControllerBase
     protected void OnRightClick(InputAction.CallbackContext context)
     {
         int clickInput = Mathf.RoundToInt(context.ReadValue<float>()) + 2;
+        mCharacter.SetClick(clickInput);
+    }
+
+    protected void OnShiftClick(InputAction.CallbackContext context)
+    {
+        int clickInput = Mathf.RoundToInt(context.ReadValue<float>()) + 4;
+        mCharacter.SetClick(clickInput);
+    }
+
+    protected void OnSpaceClick(InputAction.CallbackContext context)
+    {
+        int clickInput = Mathf.RoundToInt(context.ReadValue<float>()) + 6;
         mCharacter.SetClick(clickInput);
     }
 

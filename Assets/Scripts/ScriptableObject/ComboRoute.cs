@@ -6,30 +6,22 @@ using UnityEngine;
 public class ComboRouteList : ScriptableObject
 {
     [SerializeField]
-    private List<ComboRouteNode> comboRoute;
-    public List<ComboRouteNode> ComboRoute { get { return comboRoute; } }
+    private List<ComboNode> comboNodes;
+    public List<ComboNode> ComboNodes { get { return comboNodes; } }
 }
 
-[CreateAssetMenu(fileName = "ComboRouteNode", menuName = "Scriptable Object/ComboRouteNode")]
-public class ComboRouteNode : ScriptableObject
+public class ComboNode
 {
     [SerializeField]
-    private List<ComboAction> comboActions;
-    public List<ComboAction> ComboActions { get { return comboActions; } }
+    private int actionIndex;
+    public int ActionIndex { get { return actionIndex; } }
+
+    //캔슬 가능 시간 최소 ~ 최대
+    [SerializeField]
+    private float cancelMin = 0;
+    public float CancelMin { get { return cancelMin; } }
 
     [SerializeField]
-    private List<ComboInput> comboInputs;
-    public List<ComboInput> ComboInputs { get {  return comboInputs; } }
-}
-
-
-public enum ComboAction
-{
-    Attack1, Attack2, Attack3
-}
-
-//현재 노드로 진입하기 위한 커맨드 : 1번 인덱스의 콤보액션에 들어갈때 LeftClick이면 왼쪽 버튼을 클릭해야 1번 인덱스에 진입
-public enum ComboInput
-{
-    None, Auto, LeftClick, LeftCancel, RightClick, RightCancel
+    private float cancelMax = 1;
+    public float CancelMax { get { return cancelMax; } }
 }

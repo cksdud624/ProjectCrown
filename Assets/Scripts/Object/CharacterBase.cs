@@ -36,6 +36,12 @@ public class CharacterBase : ObjectBase
             Debug.Log("Cast Error On CharacterStat");
     }
 
+    public override void SetClick(int click)
+    {
+        base.SetClick(click);
+        mMainAnimator.SetInput(click);
+    }
+
     public override void SetMove(Vector2 move)
     {
         base.SetMove(move);

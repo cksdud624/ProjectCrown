@@ -66,9 +66,5 @@ public class RigidbodyBase : MonoBehaviour, IObjectComponent
         else
             IsMoving = true;
     }
-
-    public void SetInput(int input)
-    {
-    }
     #endregion
 }
