@@ -16,6 +16,7 @@ public class RigidbodyBase : MonoBehaviour, IObjectComponent
     protected Vector2 mDirection = Vector2.zero;
 
     protected float mMoveSpeed = 1;
+    protected bool mIsRestrict = false;
 
     public void SetMediator(ObjectBase objectBase)
     {
@@ -35,18 +36,24 @@ public class RigidbodyBase : MonoBehaviour, IObjectComponent
 
     protected void FixedUpdate()
     {
-        if(mMainRigidbody)
+        if (mIsPlayer)
         {
-            if (mIsPlayer)
-            {
-                MovePlayer();
-            }
+            MovePlayer();
         }
     }
 
     protected void MovePlayer()
     {
+        if (mMainRigidbody == null)
+            return;
+
         float terminal = mMainRigidbody.linearVelocity.y;
+
+        if (mIsRestrict)
+        {
+            mMainRigidbody.linearVelocity = new Vector3(0, terminal, 0);
+            return;
+        }
 
         Vector3 forwardDirection = ((PlayerBase)mObject).GetCameraDirection();
         forwardDirection.y = 0;
@@ -65,6 +72,11 @@ public class RigidbodyBase : MonoBehaviour, IObjectComponent
             IsMoving = false;
         else
             IsMoving = true;
+    }
+
+    public void RestrictMove(bool isRestrict)
+    {
+        mIsRestrict = isRestrict;
     }
     #endregion
 }

@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56d676bc0e449e64fb9c09d3c2a737c3, type: 3}
-  m_Name: ComboRouteNode
+  m_Name: BasicComboRoute
   m_EditorClassIdentifier: 
-  comboRoute: []
+  comboNodes:
+  - {fileID: 11400000, guid: dbdf7d86c0a79b24ea47dbc35348426f, type: 2}
+  - {fileID: 11400000, guid: f81fac0c7a37ba240bc4cba6252b2824, type: 2}
+  - {fileID: 11400000, guid: 23fb36eaf2d22604498e666d21c9d224, type: 2}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AnimatorBase : MonoBehaviour, IObjectComponent
 {
@@ -6,8 +7,13 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
     protected CharacterBase mCharacter;
     protected Animator mAnimator;
 
+    protected ComboRoute mComboRoute;
+    protected ComboNode currentNode = null;
+    public ComboNode CurrentNode { get { return currentNode; } }
+
     protected Vector2 mModelDirection = Vector2.zero;
     protected float mMoveLerp = 0f;
+    protected bool mIsRestrict = false;
 
 
     public void SetMediator(ObjectBase objectBase)
@@ -20,7 +26,13 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
             Debug.Log("Cast Error on AnimatorBase");
     }
 
-    protected void Init()
+    public void SetComboRoute(ComboRoute comboRoute)
+    {
+        mComboRoute = comboRoute;
+    }
+
+
+    protected virtual void Init()
     {
         mAnimator = GetComponent<Animator>();
     }
@@ -33,6 +45,9 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
 
     protected void RotateModel()
     {
+        if (mIsRestrict)
+            return;
+
         if(mModelDirection != Vector2.zero)
         {
             Vector3 forwardDirection = mCharacter.GetCameraDirection();
@@ -60,6 +75,20 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
 
         mAnimator.SetFloat("Velocity", mMoveLerp);
     }
+
+    #region StateMachine
+    public void EndStateAuto(ComboNode comboNode)
+    {
+        if(comboNode == currentNode)
+        {
+            currentNode = null;
+            mAnimator.CrossFade("Idle", 0.1f);
+            SetRestrict(false);
+        }
+    }
+    #endregion
+
+
     #region Receive
     public void SetModelRotation(Vector2 rotation)
     {
@@ -68,7 +97,68 @@ public class AnimatorBase : MonoBehaviour, IObjectComponent
 
     public void SetInput(int input)
     {
-        Debug.Log(input);
+        PlayAction(input);
     }
     #endregion
+
+    protected void PlayAction(int input)
+    {
+        bool isChanged = false;
+
+        if (!CanCancelCombo())
+            return;
+
+        for (int i = 0; i < mComboRoute.ComboNodes.Count; i++)
+        {
+            ComboNode tempNode = mComboRoute.ComboNodes[i];
+            if(currentNode == null)
+            {
+                if(tempNode.PreviousNode == null && tempNode.EntryInput == (EClick)input)
+                {
+                    currentNode = tempNode;
+                    isChanged = true;
+                    break;
+                }
+            }
+            else
+            {
+                if (tempNode.PreviousNode == currentNode && tempNode.EntryInput == (EClick)input)
+                {
+                    currentNode = tempNode;
+                    isChanged = true;
+                    break;
+                }
+            }
+        }
+
+        if(isChanged)
+        {
+            mAnimator.CrossFade(currentNode.ActionIndex.ToString(), 0.1f, 0);
+            SetRestrict(true);
+        }
+    }
+
+    protected bool CanCancelCombo()
+    {
+        float normalizedTime = mAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+
+        if (currentNode == null)
+            return true;
+
+        if (normalizedTime < currentNode.CancelMin || normalizedTime > currentNode.CancelMax)
+            return false;
+
+        return true;
+    }
+
+    protected void SetRestrict(bool isRestrict)
+    {
+        mCharacter.RestrictMove(isRestrict);
+        mIsRestrict = isRestrict;
+    }
+
+}
+public enum EClick
+{
+    LeftCancel, LeftClick, RightCancel, RightClick, ShiftCancel, ShiftClick, SpaceCancel, SpaceClick
 }

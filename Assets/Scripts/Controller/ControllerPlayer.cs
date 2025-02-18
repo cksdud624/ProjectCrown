@@ -1,16 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using ControllerRelated;
 
 public class ControllerPlayer : ControllerBase
 {
     PlayerInput MainInput;
 
-    public event Action<InputInfo<Vector2>> InputEventVector2;
-    public event Action<InputInfo<int>> InputEventInt;
-
-    private void Start()
+    protected void Start()
     {
         Init();
     }

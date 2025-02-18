@@ -1,9 +1,11 @@
-using ControllerRelated;
 using UnityEngine;
-using UnityEngine.Rendering;
+using System.Collections.Generic;
 
 public class CharacterBase : ObjectBase
 {
+    [SerializeField]
+    protected ComboRoute mComboRoute;
+
     protected CharacterStat mCharacterStatus;
 
     //캐릭터 베이스 -> 오브젝트 베이스를 상속받아 애니메이션 적용 가능한 캐릭터 공통 부분을 담당한다.
@@ -19,16 +21,18 @@ public class CharacterBase : ObjectBase
         mMainController.SetMediator(this);
 
         //애니메이터 바인딩
-        for(int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             AnimatorBase tempAnimationBase = transform.GetChild(i).GetComponent<AnimatorBase>();
-            if(tempAnimationBase != null)
+            if (tempAnimationBase != null)
             {
                 mMainAnimator = tempAnimationBase;
+                mMainAnimator.SetMediator(this);
+                if (mComboRoute != null)
+                    mMainAnimator.SetComboRoute(mComboRoute);
                 break;
             }
         }
-        mMainAnimator.SetMediator(this);
 
         if (mObjectStatus is CharacterStat)
             mCharacterStatus = mObjectStatus as CharacterStat;
@@ -46,5 +50,10 @@ public class CharacterBase : ObjectBase
     {
         base.SetMove(move);
         mMainAnimator.SetModelRotation(move);
+    }
+
+    public void RestrictMove(bool isRestrict)
+    {
+        mMainRigidbody.RestrictMove(isRestrict);
     }
 }

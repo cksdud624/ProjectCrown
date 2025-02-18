@@ -24,17 +24,16 @@ public class ObjectBase : MonoBehaviour
         mMainRigidbody = GetComponent<RigidbodyBase>();
         mMainRigidbody.SetMediator(this);
 
-
         for (int i = 0; i < transform.childCount; i++)
         {
             CameraBase tempCameraBase = transform.GetChild(i).GetComponent<CameraBase>();
             if (tempCameraBase != null)
             {
                 mMainCamera = tempCameraBase;
+                mMainCamera.SetMediator(this);
                 break;
             }
         }
-        mMainCamera.SetMediator(this);
     }
 
     #region Status
