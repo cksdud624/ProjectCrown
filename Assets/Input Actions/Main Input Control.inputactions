@@ -8,62 +8,26 @@
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "a47dda82-8f84-4db7-8b19-440ef5c7ea25",
+                    "id": "a512ccd0-0933-44a4-85bd-bf75ead179b7",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LeftClick",
+                    "name": "Rotate",
                     "type": "Value",
-                    "id": "09722da6-fedf-4260-a829-71391e8d216a",
-                    "expectedControlType": "Digital",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "RightClick",
-                    "type": "Value",
-                    "id": "7c2bbdb5-fd28-421e-8762-26bef0a70b69",
-                    "expectedControlType": "Digital",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MouseMove",
-                    "type": "Value",
-                    "id": "129261f7-93b6-4a89-9445-ee765969b0ac",
+                    "id": "7a89a0a9-320f-460b-b367-d272ea19f3b7",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Space",
-                    "type": "Button",
-                    "id": "f70f277f-c4a3-4ea8-9553-e77b1469b2ee",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Shift",
-                    "type": "Button",
-                    "id": "b538772e-f945-4672-9283-316d40a95134",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "633bbcb7-e387-423b-a08f-4e654c16264e",
+                    "id": "2214e99b-325e-4ef6-8a28-0eda40bae3cf",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -74,7 +38,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "dcb9ff03-1a4d-48b9-9b4f-f869988b64fb",
+                    "id": "5fee2e6d-c179-44a5-95e1-1ea64fec6597",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -85,7 +49,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "6bce5b7f-af3f-4a86-8ff0-2d930a35c919",
+                    "id": "64b19f91-290b-4570-8b6f-7205b008b4b1",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -96,7 +60,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "4af4ccd2-6852-49ea-92d1-a48735c98f21",
+                    "id": "423ce329-0a58-4a30-bee3-b0ecc01be08b",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -107,7 +71,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "0f397cf8-bc64-483a-8a49-19895a51ea6a",
+                    "id": "98a4ec14-1f70-4990-949a-a6c927cca325",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -118,100 +82,12 @@
                 },
                 {
                     "name": "",
-                    "id": "17c72c6a-3b10-483f-826d-93ec8dd58ba7",
-                    "path": "<Mouse>/leftButton",
+                    "id": "52d11b60-e2d3-4de1-97db-5dd7abe7e92d",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "78d2ceb6-9de1-4609-b17e-426539e474a6",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "2D Vector",
-                    "id": "72b2b820-00c7-4026-91b2-04c5ae956534",
-                    "path": "2DVector(mode=2)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseMove",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "f3808919-69ee-45d7-9c8c-3077229d9516",
-                    "path": "<Mouse>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "177eb427-ae95-4549-aafb-e50022b4cc6a",
-                    "path": "<Mouse>/delta/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "693f7e03-cc2a-4b36-ae65-699847ad5f25",
-                    "path": "<Mouse>/delta/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "8288cbeb-0186-4642-9f39-734a942e3da1",
-                    "path": "<Mouse>/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "3a9040e6-9e47-4065-a763-7d564e475dc6",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Space",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c6ba6f56-93aa-4f6c-b00e-ce321aba1524",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shift",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
