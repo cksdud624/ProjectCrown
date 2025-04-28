@@ -1,3 +1,4 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -26,6 +27,10 @@ public class InputPlayerBase : InputBase
         mPlayerInput.actions["Move"].performed += Move;
         mPlayerInput.actions["Move"].canceled += Stop;
         mPlayerInput.actions["Rotate"].performed += Rotate;
+        mPlayerInput.actions["LeftClick"].performed += FirstInput;
+        mPlayerInput.actions["LeftClick"].canceled += FirstInput;
+        mPlayerInput.actions["RightClick"].performed += SecondInput;
+        mPlayerInput.actions["RightClick"].canceled += SecondInput;
     }
 
     protected void UnbindInputEvent()
@@ -33,6 +38,10 @@ public class InputPlayerBase : InputBase
         mPlayerInput.actions["Move"].performed -= Move;
         mPlayerInput.actions["Move"].canceled -= Stop;
         mPlayerInput.actions["Rotate"].performed -= Rotate;
+        mPlayerInput.actions["LeftClick"].performed -= FirstInput;
+        mPlayerInput.actions["RightClick"].performed -= SecondInput;
+        mPlayerInput.actions["LeftClick"].canceled -= FirstInput;
+        mPlayerInput.actions["RightClick"].canceled -= SecondInput;
     }
     #endregion
 
@@ -52,7 +61,29 @@ public class InputPlayerBase : InputBase
     {
         Vector2 delta = context.ReadValue<Vector2>();
         //x : аб, ©Л y : ╩С го
-        mMediator.Rotate(delta);
+        Rotate(delta);
+    }
+
+    protected void FirstInput(InputAction.CallbackContext context)
+    {
+        int input = (int)context.ReadValue<float>();
+        eInputCommand command;
+        if (input == 0)
+            command = eInputCommand.FirstRelease;
+        else
+            command = eInputCommand.FirstPress;
+        Input(command);
+    }
+
+    protected void SecondInput(InputAction.CallbackContext context)
+    {
+        int input = (int)context.ReadValue<float>();
+        eInputCommand command;
+        if (input == 0)
+            command = eInputCommand.SecondRelease;
+        else
+            command = eInputCommand.SecondPress;
+        Input(command);
     }
     #endregion
 }

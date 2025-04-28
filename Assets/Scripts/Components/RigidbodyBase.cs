@@ -13,6 +13,14 @@ public class RigidbodyBase : MonoBehaviour, IObjectComponent<ObjectBase>
 
     protected void SetVelocity()
     {
+        Vector3 forward = mMediator.GetForward();
+        forward.y = 0;
+
+        Vector3 right = Vector3.Cross(Vector3.up, forward);
+
+        Vector3 velocity = forward * mDirection.y + right * mDirection.x;
+
+        mRigidbody.linearVelocity = velocity;
     }
 
     #region Bind

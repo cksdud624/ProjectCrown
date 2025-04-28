@@ -34,11 +34,13 @@ public class ObjectBase : MonoBehaviour
     #endregion
 
     #region Receive
+    //Rigidbody
     virtual public void SetDirection(Vector2 direction)
     {
         mRigidbodyBase.SetDirection(direction);
     }
 
+    //Camera
     virtual public void AttachCameraFlag(CameraFlag flag)
     {
         mCameraBase.AttachCameraFlag(flag);
@@ -53,6 +55,19 @@ public class ObjectBase : MonoBehaviour
     {
         mCameraBase.Rotate(delta);
     }
+
+    //Input
+    virtual public void ProcessInputCommand(eInputCommand inputCommand)
+    {
+    }
+    #endregion
+
+    #region Send
+    virtual public Vector3 GetForward()
+    {
+        return mCameraBase.GetForward();
+    }
+
     #endregion
 
 }

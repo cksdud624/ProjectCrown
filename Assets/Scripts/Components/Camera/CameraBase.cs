@@ -37,4 +37,8 @@ public class CameraBase : MonoBehaviour, IObjectComponent<ObjectBase>
         mCameraFlag.Rotate(delta);
     }
     #endregion
+
+    #region Send
+    public Vector3 GetForward() => mCameraFlag.transform.forward;
+    #endregion
 }

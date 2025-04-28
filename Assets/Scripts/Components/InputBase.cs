@@ -29,7 +29,12 @@ public class InputBase : MonoBehaviour, IObjectComponent<ObjectBase>
 
     protected void Rotate(Vector2 direction)
     {
+        mMediator.Rotate(direction);
+    }
 
+    protected void Input(eInputCommand inputCommand)
+    {
+        mMediator.ProcessInputCommand(inputCommand);
     }
     #endregion
 }
