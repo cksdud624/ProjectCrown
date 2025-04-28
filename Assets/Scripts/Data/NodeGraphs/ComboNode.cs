@@ -9,7 +9,6 @@ public class ComboNode : Node
 	public eAnimationIndexType IndexType;
 	public int AnimationIndex;
 	public eInputCommand InputCommand;
-	private ComboNode Mine;
     [Input] public ComboNode PreviousNode;
     [Output] public ComboNode NextNode;
 	public List<ComboNode> PreviousNodes;
@@ -19,14 +18,15 @@ public class ComboNode : Node
 	// Use this for initialization
 	protected override void Init() {
 		base.Init();
-		Mine = this;
 	}
 
 	// Return the correct value of an output port when requested
 	public override object GetValue(NodePort port)
 	{
 		if (port.fieldName == "NextNode")
-			return Mine;
+		{
+			return this;
+		}
 		return null;
     }
 
@@ -36,6 +36,15 @@ public class ComboNode : Node
 		ComboNode comboNode = from.GetOutputValue() as ComboNode;
 		if (this != comboNode)
 		{
+			if(comboNode.NextNodes == null)
+				comboNode.NextNodes = new List<ComboNode>();
+			if(comboNode.PreviousNodes == null)
+				comboNode.PreviousNodes = new List<ComboNode>();
+			if(PreviousNodes == null)
+				PreviousNodes = new List<ComboNode>();
+			if(NextNodes == null)
+				NextNodes = new List<ComboNode>();
+
 			if(!comboNode.NextNodes.Contains(this))
 				comboNode.NextNodes.Add(this);
 			if(!PreviousNodes.Contains(comboNode))
