@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class InputBase : MonoBehaviour, IObjectComponent<ObjectBase>
+public class InputBase : MonoBehaviour, IObjectComponent<ObjectBase, ObjectData>
 {
     protected ObjectBase mMediator;
 
     #region Bind
-    virtual public void BindComponent(ObjectBase mediator)
+    virtual public void BindComponent(ObjectBase mediator, ObjectData data)
     {
         mMediator = mediator;
     }

@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class CameraBase : MonoBehaviour, IObjectComponent<ObjectBase>
+public class CameraBase : MonoBehaviour, IObjectComponent<ObjectBase, ObjectData>
 {
     ObjectBase mMediator;
     CameraFlag mCameraFlag;
 
     #region Bind
-    public void BindComponent(ObjectBase mediator)
+    public void BindComponent(ObjectBase mediator, ObjectData data)
     {
         mMediator = mediator;
     }

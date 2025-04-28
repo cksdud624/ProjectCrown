@@ -8,9 +8,9 @@ public class InputPlayerBase : InputBase
     protected PlayerInput mPlayerInput;
 
     #region Bind
-    public override void BindComponent(ObjectBase mediator)
+    public override void BindComponent(ObjectBase mediator, ObjectData data)
     {
-        base.BindComponent(mediator);
+        base.BindComponent(mediator, data);
         mPlayerInput = GetComponent<PlayerInput>();
         BindInputEvent();
     }

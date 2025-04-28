@@ -6,7 +6,7 @@ public class TestCenter : MonoBehaviour
     public CharacterBase player;
     public CinemachineTracker tracker;
     public CameraFlag flag;
-    public ComboNodeGraph testGraph;
+    public CharacterData characterData;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class TestCenter : MonoBehaviour
 
     private void Start()
     {
-        player.BindComponent();
+        player.BindComponent(characterData);
         tracker.SetTrackingTarget(flag);
         player.AttachCameraFlag(flag);
     }

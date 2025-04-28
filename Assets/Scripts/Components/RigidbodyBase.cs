@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RigidbodyBase : MonoBehaviour, IObjectComponent<ObjectBase>
+public class RigidbodyBase : MonoBehaviour, IObjectComponent<ObjectBase, ObjectData>
 {
     ObjectBase mMediator;
     Rigidbody mRigidbody;
@@ -24,7 +24,7 @@ public class RigidbodyBase : MonoBehaviour, IObjectComponent<ObjectBase>
     }
 
     #region Bind
-    public void BindComponent(ObjectBase mediator)
+    public void BindComponent(ObjectBase mediator, ObjectData data)
     {
         mMediator = mediator;
         mRigidbody = GetComponent<Rigidbody>();

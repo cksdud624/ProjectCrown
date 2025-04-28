@@ -1,23 +1,27 @@
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 public class ObjectBase : MonoBehaviour
 {
     //모든 오브젝트 들이 공통으로 가지는 클래스
-    RigidbodyBase mRigidbodyBase;
-    InputBase mInputBase;
-    CameraBase mCameraBase;
+    protected RigidbodyBase mRigidbodyBase;
+    protected InputBase mInputBase;
+    protected CameraBase mCameraBase;
+
+    ObjectData mObjectData;
 
     #region Bind
-    virtual public void BindComponent()
+    virtual public void BindComponent(ObjectData data)
     {
+        mObjectData = data;
         mRigidbodyBase = GetComponent<RigidbodyBase>();
-        mRigidbodyBase.BindComponent(this);
+        mRigidbodyBase.BindComponent(this, mObjectData);
 
         mInputBase = GetComponent<InputBase>();
-        mInputBase.BindComponent(this);
+        mInputBase.BindComponent(this, mObjectData);
 
         mCameraBase = GetComponent<CameraBase>();
-        mCameraBase.BindComponent(this);
+        mCameraBase.BindComponent(this, mObjectData);
     }
 
     virtual public void UnbindComponent()
