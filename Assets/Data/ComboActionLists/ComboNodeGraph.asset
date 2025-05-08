@@ -48,10 +48,11 @@ MonoBehaviour:
   IndexType: 1
   AnimationType: 2
   AnimationIndex: 1
+  CanMove: 0
   CancelMins:
   - 0.3
   CancelMaxs:
-  - 1
+  - 0.9
   InputCommand: 0
 --- !u!114 &-1047770105923517481
 MonoBehaviour:
@@ -100,7 +101,8 @@ MonoBehaviour:
   NextNodes: []
   IndexType: 1
   AnimationType: 2
-  AnimationIndex: 1
+  AnimationIndex: 4
+  CanMove: 0
   CancelMins: []
   CancelMaxs: []
   InputCommand: 2
@@ -152,6 +154,7 @@ MonoBehaviour:
   IndexType: 1
   AnimationType: 2
   AnimationIndex: 3
+  CanMove: 0
   CancelMins: []
   CancelMaxs: []
   InputCommand: 0
@@ -228,8 +231,9 @@ MonoBehaviour:
   IndexType: 1
   AnimationType: 2
   AnimationIndex: 2
+  CanMove: 0
   CancelMins:
   - 0.3
   CancelMaxs:
-  - 1
+  - 0.9
   InputCommand: 0

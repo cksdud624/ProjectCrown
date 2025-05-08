@@ -7,41 +7,34 @@ public class CharacterBase : ObjectBase
     //애니메이션을 가질 수 있는 캐릭터 클래스
     protected AnimatorBase mAnimatorBase;
     CharacterData mCharacterData;
+    CharacterChannel mCharacterChannel;
 
-    #region Bind
-    public override void BindComponent(ObjectData data)
+    #region Instantiate
+    protected override void InstantiateChannel()
     {
-        base.BindComponent(data);
-        mAnimatorBase = GetComponent<AnimatorBase>();
-        mCharacterData = data as CharacterData;
-        mAnimatorBase.BindComponent(this, mCharacterData);
-    }
-
-    public override void UnbindComponent()
-    {
-        base.UnbindComponent();
-        mAnimatorBase.UnbindComponent();
-        mAnimatorBase = null;
+        mCharacterChannel = ScriptableObject.CreateInstance<CharacterChannel>();
+        mObjectChannel = mCharacterChannel as ObjectChannel;
     }
     #endregion
 
-    #region Receive
-
-    //Animation
-    public override void SetDirection(Vector2 direction)
+    #region Bind
+    public override void Bind(ObjectData data)
     {
-        base.SetDirection(direction);
-        mAnimatorBase.SetModelDirection(direction);
-        if (direction != Vector2.zero)
-            mAnimatorBase.PlayMoveAnimation(eAnimationType.Run, eAnimationIndexType.Single);
-        else
-            mAnimatorBase.PlayMoveAnimation(eAnimationType.Idle, eAnimationIndexType.Single);
+        base.Bind(data);
+        mCharacterData = data as CharacterData;
+
+        mAnimatorBase = GetComponent<AnimatorBase>();
+        mAnimatorBase.Bind(this, mCharacterData, mCharacterChannel);
     }
 
-    public override void ProcessInputCommand(eInputCommand inputCommand)
+    public override void Unbind()
     {
-        base.ProcessInputCommand(inputCommand);
-        mAnimatorBase.PlayAnimation(inputCommand);
+        base.Unbind();
+        mCharacterData = null;
+        mCharacterChannel = null;
+
+        mAnimatorBase.Unbind();
+        mAnimatorBase = null;
     }
     #endregion
 }

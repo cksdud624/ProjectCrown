@@ -19,7 +19,7 @@ public class TestCenter : MonoBehaviour
 
     private void Start()
     {
-        player.BindComponent(characterData);
+        player.Bind(characterData);
         tracker.SetTrackingTarget(flag);
         player.AttachCameraFlag(flag);
     }

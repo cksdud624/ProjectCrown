@@ -27,7 +27,12 @@ public enum eAnimationIndexType
 
 public enum eInputCommand
 {
-    FirstPress, FirstRelease, SecondPress, SecondRelease
+    FirstPress, FirstRelease, SecondPress, SecondRelease, None
+}
+
+public enum eObjectState
+{
+    Normal, Action
 }
 
 public class CustomNodeExchange

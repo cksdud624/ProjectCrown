@@ -151,7 +151,7 @@ MonoBehaviour:
   player: {fileID: 1740005796}
   tracker: {fileID: 1525622879}
   flag: {fileID: 2124932821}
-  testGraph: {fileID: 11400000, guid: 89502404d44ec024da20678e0bec09f4, type: 2}
+  characterData: {fileID: 11400000, guid: 0e61ac03046404b44b7c0c94b897951f, type: 2}
 --- !u!4 &239406128
 Transform:
   m_ObjectHideFlags: 0
@@ -2530,6 +2530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6829708282495115857}
   - component: {fileID: 587671011627366443}
+  - component: {fileID: 6829708282495115858}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -2700,6 +2701,18 @@ Transform:
   - {fileID: 1339730402140766917}
   m_Father: {fileID: 1740005793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6829708282495115858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6164354577460787435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52800db5006a02c4f88aae999ecfc330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6892162185411436528
 Transform:
   m_ObjectHideFlags: 0

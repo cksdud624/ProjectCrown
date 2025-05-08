@@ -1,4 +1,4 @@
-using Unity.Android.Gradle.Manifest;
+using System;
 using UnityEngine;
 
 public class ObjectBase : MonoBehaviour
@@ -8,70 +8,53 @@ public class ObjectBase : MonoBehaviour
     protected InputBase mInputBase;
     protected CameraBase mCameraBase;
 
+    //µ•¿Ã≈Õ
     ObjectData mObjectData;
+    protected ObjectChannel mObjectChannel;
 
     #region Bind
-    virtual public void BindComponent(ObjectData data)
+    virtual public void Bind(ObjectData data)
     {
         mObjectData = data;
+        InstantiateChannel();
+
         mRigidbodyBase = GetComponent<RigidbodyBase>();
-        mRigidbodyBase.BindComponent(this, mObjectData);
+        mRigidbodyBase.Bind(this, mObjectData, mObjectChannel);
 
         mInputBase = GetComponent<InputBase>();
-        mInputBase.BindComponent(this, mObjectData);
+        mInputBase.Bind(this, mObjectData, mObjectChannel);
 
         mCameraBase = GetComponent<CameraBase>();
-        mCameraBase.BindComponent(this, mObjectData);
+        mCameraBase.Bind(this, mObjectData, mObjectChannel);
     }
 
-    virtual public void UnbindComponent()
+    virtual public void Unbind()
     {
-        mRigidbodyBase.UnbindComponent();
+        mObjectData = null;
+        mObjectChannel = null;
+
+        mRigidbodyBase.Unbind();
         mRigidbodyBase = null;
 
-        mInputBase.UnbindComponent();
+        mInputBase.Unbind();
         mInputBase = null;
 
-        mCameraBase.UnbindComponent();
+        mCameraBase.Unbind();
         mCameraBase = null;
     }
     #endregion
 
+    #region Instantiate
+    virtual protected void InstantiateChannel()
+    {
+        mObjectChannel = ScriptableObject.CreateInstance<ObjectChannel>();
+    }
+    #endregion
+
     #region Receive
-    //Rigidbody
-    virtual public void SetDirection(Vector2 direction)
-    {
-        mRigidbodyBase.SetDirection(direction);
-    }
+    //External
+    virtual public void AttachCameraFlag(CameraFlag flag) => mCameraBase.AttachCameraFlag(flag);
 
-    //Camera
-    virtual public void AttachCameraFlag(CameraFlag flag)
-    {
-        mCameraBase.AttachCameraFlag(flag);
-    }
-
-    virtual public void DetachCameraFlag()
-    {
-        mCameraBase.DetachCameraFlag();
-    }
-
-    virtual public void Rotate(Vector2 delta)
-    {
-        mCameraBase.Rotate(delta);
-    }
-
-    //Input
-    virtual public void ProcessInputCommand(eInputCommand inputCommand)
-    {
-    }
+    virtual public void DetachCameraFlag() => mCameraBase.DetachCameraFlag();
     #endregion
-
-    #region Send
-    virtual public Vector3 GetForward()
-    {
-        return mCameraBase.GetForward();
-    }
-
-    #endregion
-
 }

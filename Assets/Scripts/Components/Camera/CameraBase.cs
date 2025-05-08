@@ -1,19 +1,28 @@
 using UnityEngine;
 
-public class CameraBase : MonoBehaviour, IObjectComponent<ObjectBase, ObjectData>
+public class CameraBase : MonoBehaviour, IObjectComponent<ObjectBase, ObjectData, ObjectChannel>
 {
     ObjectBase mMediator;
+    ObjectData mObjectData;
+    ObjectChannel mObjectChannel;
+
     CameraFlag mCameraFlag;
 
     #region Bind
-    public void BindComponent(ObjectBase mediator, ObjectData data)
+    public void Bind(ObjectBase mediator, ObjectData data, ObjectChannel channel)
     {
         mMediator = mediator;
+        mObjectData = data;
+        mObjectChannel = channel;
+        mObjectChannel.OnDrag += Rotate;
     }
 
-    public void UnbindComponent()
+    public void Unbind()
     {
         mMediator = null;
+        mObjectData = null;
+        mObjectChannel.OnDrag -= Rotate;
+        mObjectChannel = null;
     }
     #endregion
 
@@ -22,10 +31,12 @@ public class CameraBase : MonoBehaviour, IObjectComponent<ObjectBase, ObjectData
     {
         mCameraFlag = flag;
         mCameraFlag.AttachParent(this);
+        mObjectChannel.GlobalTransform = mCameraFlag.transform;
     }    
 
     public void DetachCameraFlag()
     {
+        mObjectChannel.GlobalTransform = null;
         mCameraFlag = null;
     }
 
